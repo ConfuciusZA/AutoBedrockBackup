@@ -4,9 +4,10 @@ Dim FSO : Set FSO = CreateObject("Scripting.FileSystemObject")
 Dim num : num = 1
 
 Dim strFolder 
-Dim serverFile : serverFile = "bedrock_server.exe"
-Dim worldLoc : worldLoc = "worlds"
-Dim backLoc : backLoc = "backups"
+Dim serverFile : serverFile = "bedrock_server.exe" 'Server executable file. Default: bedrock_server.exe
+Dim worldLoc : worldLoc = "worlds" 'folder name where worlds are
+Dim backLoc : backLoc = "backups" 'folder name for backups
+Dim backupsToKeep: backupsToKeep = 5 'number of backups to keep
 
 Set objFile = FSO.GetFile(Wscript.ScriptFullName)
 strFolder = FSO.GetParentFolderName(objFile) 
@@ -43,7 +44,12 @@ Function Backup 'copy world folder to the backup folder
 		
 		FSO.CreateFolder(strFolder & "\" & backLoc & a)
 
-		FSO.CopyFolder worldLoc, (backLoc & a)
+		FSO.CopyFolder worldLoc, (strFolder & "\" & backLoc & a)
+		
+		If (FSO.GetFolder(strFolder & "\" & backLoc).Subfolders.Count) > backupsToKeep then				
+			ClearExcessBackups
+		End If
+		
 		wscript.sleep 1000
 	End If
 	
@@ -101,6 +107,33 @@ Function Announce 'Sends a five minute warning to all players then stops server 
 	End If
 	
 End Function
+
+Sub ClearExcessBackups
+	Dim f, a(), sf, i, j, p, d
+
+	Set f = FSO.GetFolder(strFolder & "\" & backLoc)
+	MsgBox(f.SubFolders.Count <= backupsToKeep)
+	If f.SubFolders.Count <= backupsToKeep Then Exit Sub
+	ReDim a(1, f.SubFolders.Count - 1)
+	For Each sf In f.SubFolders
+	  a(0, i) = sf.Path
+	  a(1, i) = sf.DateCreated
+	  i = i + 1
+	Next
+	For i = 0 To UBound(a, 2) - 1
+	  For j = i + 1 To UBound(a, 2)
+		If a(1, i) < a(1, j) Then
+		  p = a(0, j): d = a(1, j)
+		  a(0, j) = a(0, i): a(1, j) = a(1, i)
+		  a(0, i) = p: a(1, i) = d
+		End If
+	  Next
+	Next
+	For i = backupsToKeep To UBound(a, 2)
+	  FSO.DeleteFolder a(0, i), True
+	Next
+End Sub
+
 
 Function Main 'stops server, copies world, restarts server
 	
