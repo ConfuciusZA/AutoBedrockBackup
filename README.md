@@ -3,7 +3,7 @@ Simplification of the NeoLich's script to backup your Windows based Minecraft Be
 
 Single script designed to run on demand (eg. manually or through task scheduler)
 
-The script is written in vbs and with variables declared in it
+The script is written in vbs
 
 The vbs file should be copied to the same directory as your server.
 By default, it will look for the 'bedrock_server.exe' as the server executable. If you have renamed yours, update the script accordingly. 
