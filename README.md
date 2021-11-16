@@ -6,13 +6,14 @@ Single script designed to run on demand (eg. manually or through task scheduler)
 The script is written in vbs
 
 The vbs file should be copied to the same directory as your server.
-By default, it will look for the 'bedrock_server.exe' as the server executable. 
-If you have renamed yours, update the script accordingly. 
+By default it will:
+- Look for the 'bedrock_server.exe' as the server executable. If you have renamed yours, update the script accordingly. 
+- Use 'backups' as the name of the folder where your world will be copied to
+- Look in the 'worlds' subfolder to copy from
+- Keep the 5 latest backups
 
 No paths are hardcoded, script will look for your 'worlds' folder and a 'backups' folder (will create the latter if it doesn't exist)
 
 On running the script, it will check if the server executable is running 
   If running,  it will give a 5 & 1 minute warning before stopping the server, copying the files into a subfolder within your specificied backup folder, and restarting the server. 
   If not it will copy the files and start the server.   
-
-NOTE: This does not clear out old backups. They'll pile up over time.  
