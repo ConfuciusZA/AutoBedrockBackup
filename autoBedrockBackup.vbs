@@ -112,7 +112,7 @@ Sub ClearExcessBackups
 	Dim f, a(), sf, i, j, p, d
 
 	Set f = FSO.GetFolder(strFolder & "\" & backLoc)
-	MsgBox(f.SubFolders.Count <= backupsToKeep)
+	
 	If f.SubFolders.Count <= backupsToKeep Then Exit Sub
 	ReDim a(1, f.SubFolders.Count - 1)
 	For Each sf In f.SubFolders
