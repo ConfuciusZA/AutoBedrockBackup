@@ -6,7 +6,9 @@ Single script designed to run on demand (eg. manually or through task scheduler)
 The script is written in vbs
 
 The vbs file should be copied to the same directory as your server.
-By default, it will look for the 'bedrock_server.exe' as the server executable. If you have renamed yours, update the script accordingly. 
+By default, it will look for the 'bedrock_server.exe' as the server executable. 
+If you have renamed yours, update the script accordingly. 
+
 No paths are hardcoded, script will look for your 'worlds' folder and a 'backups' folder (will create the latter if it doesn't exist)
 
 On running the script, it will check if the server executable is running 
