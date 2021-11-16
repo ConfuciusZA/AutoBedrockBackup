@@ -14,3 +14,5 @@ No paths are hardcoded, script will look for your 'worlds' folder and a 'backups
 On running the script, it will check if the server executable is running 
   If running,  it will give a 5 & 1 minute warning before stopping the server, copying the files into a subfolder within your specificied backup folder, and restarting the server. 
   If not it will copy the files and start the server.   
+
+NOTE: This does not clear out old backups. They'll pile up over time.  
